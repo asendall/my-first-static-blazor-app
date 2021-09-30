@@ -1,5 +1,11 @@
 {
-    "navigationFallback": {
-        "rewrite": "/index.html"
+  "routes": [
+    {
+      "route": "/secure",
+      "allowedRoles": [ "admin" ]
     }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  }
 }
