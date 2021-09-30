@@ -1,11 +1,12 @@
 {
   "clientPrincipal": {
-    "identityProvider": "github",
+    "identityProvider": "google",
     "userId": "test123",
-    "userDetails": "anthony",
+    "userDetails": "Andrew",
     "userRoles": [
       "anonymous",
-      "authenticated"
+      "authenticated",
+      "admin"
     ]
   }
 }
