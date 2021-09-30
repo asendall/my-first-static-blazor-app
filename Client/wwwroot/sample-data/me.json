@@ -5,7 +5,8 @@
     "userDetails": "Andrew",
     "userRoles": [
       "anonymous",
-      "authenticated"
+      "authenticated",
+      "admin"
     ]
   }
 }

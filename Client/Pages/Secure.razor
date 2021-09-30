@@ -3,3 +3,24 @@
 <h1>Hello - Logged-In User</h1>
 
 Welcome to your new app.
+
+@*<button @onclick="Connect">Connect to Quickbooks</button>
+
+@code{
+
+
+    void Connect(MouseEventArgs e)
+    {
+        try
+        {
+            client.Connect();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+
+        //Do Stuff
+    }
+}*@
