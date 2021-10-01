@@ -5,10 +5,6 @@
       "allowedRoles": [ "admin" ]
     },
     {
-      "route": "/callback",
-      "allowedRoles": [ "admin" ]
-    },
-    {
       "route": "/api/*",
       "methods": [ "GET" ],
       "allowedRoles": [ "admin" ]

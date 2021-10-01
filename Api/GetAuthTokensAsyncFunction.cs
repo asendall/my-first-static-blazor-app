@@ -24,18 +24,12 @@ namespace BlazorApp.Api
             ILogger log)
         {
 
-            string code = req.Query["code"];
-
+            string code = req.Query["code"];            
             var client = new OAuth2Client(_options.ClientId, _options.ClientSecret, _options.RedirectUrl, _options.Environment);
-            try
-            {
-                var tokenResponse = await client.GetBearerTokenAsync(code);
-                return new OkObjectResult(tokenResponse.AccessToken);                
-            }
-            catch (System.Exception ex)
-            {
-                return new OkObjectResult(ex.Message);
-            }
+
+            var tokenResponse = await client.GetBearerTokenAsync(code);
+
+            return new OkObjectResult(tokenResponse.AccessToken);
             
         }
     }
