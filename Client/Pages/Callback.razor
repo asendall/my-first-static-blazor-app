@@ -3,6 +3,9 @@
 @using BlazorApp.Client.Extensions
 @inject NavigationManager NavManager
 @inject HttpClient Http
+
+
+
 <h1>Success!</h1>
 <p>You succefully logged in to Quickbooks.</p>
 <p>Next store the access and refresh tokens</p>
@@ -71,7 +74,16 @@ else
     private async Task GetAuthTokensAsync()
     {
         accessToken = "Loading...";
-        accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync?code={requestCode}");
+        try
+        {
+            accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync?code={requestCode}");
+        }
+        catch (Exception ex)
+        {
+
+            accessToken = ex.Message;
+        }
+
     }
 }
 
