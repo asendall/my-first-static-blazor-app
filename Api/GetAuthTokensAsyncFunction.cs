@@ -30,7 +30,7 @@ namespace BlazorApp.Api
             try
             {
                 var tokenResponse = await client.GetBearerTokenAsync(code);
-                return new OkObjectResult(tokenResponse.AccessToken);
+                return new OkObjectResult(tokenResponse.AccessToken);                
             }
             catch (System.Exception ex)
             {

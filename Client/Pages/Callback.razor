@@ -3,6 +3,7 @@
 @using BlazorApp.Client.Extensions
 @inject NavigationManager NavManager
 @inject HttpClient Http
+@attribute [Authorize]
 <h1>Success!</h1>
 <p>You succefully logged in to Quickbooks.</p>
 <p>Next store the access and refresh tokens</p>
