@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 //https://anthonychu.ca/post/blazor-auth-azure-static-web-apps/
+//https://www.daveabrock.com/2021/05/13/azure-static-web-apps-favorite-things/
 
 namespace BlazorApp.Client
 {
