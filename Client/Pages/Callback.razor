@@ -41,6 +41,7 @@ else
             </tr>
         </tbody>
     </table>
+    <button class="btn btn-primary" @onclick="GetAuthTokensAsync">GetAuthTokensAsync</button>
 }
 
 @code {
@@ -49,7 +50,7 @@ else
     private string realmId;
     private string accessToken;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         try
         {
@@ -60,12 +61,17 @@ else
             requestCode = NavManager.ExtractQueryStringByKey<string>("code");
             realmId = NavManager.ExtractQueryStringByKey<string>("realmId");
 
-            accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync?code={requestCode}");
+
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
         }
+    }
+
+    private async Task GetAuthTokensAsync()
+    {
+        accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync?code={requestCode}");
     }
 }
 
