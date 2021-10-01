@@ -35,10 +35,7 @@ namespace BlazorApp.Api
             catch (System.Exception ex)
             {
                 return new OkObjectResult(ex.Message);
-                throw;
             }
-            
-
             
         }
     }
