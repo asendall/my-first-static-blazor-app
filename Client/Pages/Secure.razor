@@ -1,26 +1,47 @@
 ﻿@page "/secure"
 
-<h1>Hello - Logged-In User</h1>
+@using BlazorApp.Shared
+@inject HttpClient Http
+@inject NavigationManager NavManager
+@attribute [Authorize]
 
-Welcome to your new app.
+<h1>Quickbooks connection</h1>
 
-@*<button @onclick="Connect">Connect to Quickbooks</button>
+<p>This component demonstrates calling a function endpoint which connects to Quickbooks.</p>
 
-@code{
+@if (url == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Authorization URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@url</td>
+            </tr>
+        </tbody>
+    </table>
+}
 
+@code {
+    private string url;
 
-    void Connect(MouseEventArgs e)
+    protected override async Task OnInitializedAsync()
     {
         try
         {
-            client.Connect();
+            url = await Http.GetStringAsync("/api/GetAuthorizationURL");
+            NavManager.NavigateTo(url);
         }
         catch (Exception ex)
         {
-
-            throw;
+            Console.WriteLine(ex.ToString());
         }
-
-        //Do Stuff
     }
-}*@
+}
