@@ -3,11 +3,6 @@
     {
       "route": "/secure",
       "allowedRoles": [ "admin" ]
-    },
-    {
-      "route": "/api/*",
-      "methods": [ "GET" ],
-      "allowedRoles": [ "admin" ]
     }
   ],
   "navigationFallback": {
