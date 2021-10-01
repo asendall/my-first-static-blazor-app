@@ -19,17 +19,26 @@ namespace BlazorApp.Api
         }
 
         [FunctionName("GetAuthTokensAsync")]
-        public async Task<IActionResult> Run(
+        public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
+            try
+            {
+                string code = req.Query["code"];
+                var client = new OAuth2Client(_options.ClientId, _options.ClientSecret, _options.RedirectUrl, _options.Environment);
 
-            string code = req.Query["code"];            
-            var client = new OAuth2Client(_options.ClientId, _options.ClientSecret, _options.RedirectUrl, _options.Environment);
+                var tokenResponse = client.GetBearerTokenAsync(code).Result;
 
-            var tokenResponse = await client.GetBearerTokenAsync(code);
+                return new OkObjectResult(tokenResponse.AccessToken);
+            }
+            catch (System.Exception ex)
+            {
 
-            return new OkObjectResult(tokenResponse.AccessToken);
+                return new OkObjectResult(ex.Message); ;
+            }
+
+
             
         }
     }
