@@ -4,33 +4,33 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Intuit.Ipp.OAuth2PlatformClient;
-using System.Collections.Generic;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace BlazorApp.Api
 {
-    public class GetAuthorizationURLFunction
+    public class GetAuthTokensAsyncFunction
     {
         private readonly OAuth2Keys _options;
 
-        public GetAuthorizationURLFunction(IOptions<OAuth2Keys> options)
+        public GetAuthTokensAsyncFunction(IOptions<OAuth2Keys> options)
         {
             _options = options.Value;
         }
 
-        [FunctionName("GetAuthorizationURL")]
-        public IActionResult Run(
+        [FunctionName("GetAuthTokensAsync")]
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
-            var client = new OAuth2Client(_options.ClientId, _options.ClientSecret, _options.RedirectUrl, _options.Environment);
-            var scopes = new List<OidcScopes>
-            {
-                OidcScopes.Accounting
-            };
-            var authorizeUrl = client.GetAuthorizationURL(scopes);
 
-            return new OkObjectResult(authorizeUrl);
+            string code = req.Query["code"];
+
+            var client = new OAuth2Client(_options.ClientId, _options.ClientSecret, _options.RedirectUrl, _options.Environment);
+
+            var tokenResponse = await client.GetBearerTokenAsync(code);
+
+            return new OkObjectResult(tokenResponse.AccessToken);
         }
     }
 }

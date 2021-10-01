@@ -1,6 +1,70 @@
 ﻿@page "/callback"
-
+@using Microsoft.AspNetCore.WebUtilities
+@using BlazorApp.Client.Extensions
+@inject NavigationManager NavManager
+@inject HttpClient Http
 <h1>Success!</h1>
 <p>You succefully logged in to Quickbooks.</p>
-<p>Now we need to get the token.</p>
+<p>Next store the access and refresh tokens</p>
+<p>And then use them</p>
+
+@if (accessToken == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>State</td>
+                <td>@state</td>
+            </tr>
+            <tr>
+                <td>Code</td>
+                <td>@requestCode</td>
+            </tr>
+            <tr>
+                <td>Realm Id</td>
+                <td>@realmId</td>
+            </tr>
+            <tr>
+                <td>Access Token</td>
+                <td>@accessToken</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@code {
+    private string requestCode;
+    private string state;
+    private string realmId;
+    private string accessToken;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+            var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+
+            state = NavManager.ExtractQueryStringByKey<string>("state");
+            requestCode = NavManager.ExtractQueryStringByKey<string>("code");
+            realmId = NavManager.ExtractQueryStringByKey<string>("realmId");
+
+            accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync?code={requestCode}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}
 
