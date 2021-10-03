@@ -1,8 +1,10 @@
 ﻿@page "/secure"
 
 @using BlazorApp.Shared
+@using Microsoft.Extensions.Configuration
 @inject HttpClient Http
 @inject NavigationManager NavManager
+@inject IConfiguration Configuration
 @attribute [Authorize]
 
 <h1>Quickbooks connection</h1>
