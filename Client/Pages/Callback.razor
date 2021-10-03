@@ -74,15 +74,9 @@ else
     private async Task GetAuthTokensAsync()
     {
         accessToken = "Loading...";
-        try
-        {
-            accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync?code={requestCode}");
-        }
-        catch (Exception ex)
-        {
 
-            accessToken = ex.Message;
-        }
+        accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync/{requestCode}");
+
 
     }
 }
