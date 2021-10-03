@@ -8,6 +8,8 @@ using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Azure.Data.AppConfiguration;
+using BlazorApp.Shared;
+using System;
 
 namespace BlazorApp.Api
 {
@@ -24,20 +26,26 @@ namespace BlazorApp.Api
 
         [FunctionName("GetAuthTokensAsync")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetAuthTokensAsync/{code}")] HttpRequest req, string code,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] AuthorizationServerResponse authorizationServerResponse, HttpRequest req, 
             ILogger log)
         {
 
             //string code = req.Query["code"];
             var client = new OAuth2Client(_options.ClientId, _options.ClientSecret, _options.RedirectUrl, _options.Environment);
-
-            var tokenResponse = await client.GetBearerTokenAsync(code);
+            
+            var tokenResponse = await client.GetBearerTokenAsync(authorizationServerResponse.Code);
 
             var connectionString = _config.GetConnectionString("AppConfig");
             var configurationClient = new ConfigurationClient(connectionString);
-            ConfigurationSetting setting = configurationClient.SetConfigurationSetting("TestApp:Settings:Message", tokenResponse.AccessToken);
+            await configurationClient.SetConfigurationSettingAsync("TestApp:QuickBooks:AccessToken", tokenResponse.AccessToken);
+            await configurationClient.SetConfigurationSettingAsync("TestApp:QuickBooks:RefreshToken", tokenResponse.RefreshToken);
+            await configurationClient.SetConfigurationSettingAsync("TestApp:Settings:Sentinel", Guid.NewGuid().ToString());
 
-            return new OkObjectResult(tokenResponse.AccessToken);
+            return new OkObjectResult(new MyTokenResponse()
+            {
+                AccessToken = tokenResponse.AccessToken,
+                RefreshToken = tokenResponse.RefreshToken
+            });
             
         }
     }

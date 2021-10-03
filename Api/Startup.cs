@@ -16,6 +16,8 @@ namespace BlazorApp.Api
                 {
                     configuration.GetSection("OAuth2Keys").Bind(settings);
                 });
+
+            builder.Services.AddAzureAppConfiguration();
         }
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
@@ -25,7 +27,16 @@ namespace BlazorApp.Api
                 .AddUserSecrets(Assembly.GetExecutingAssembly(), false)
                 .Build();
             var connection = settings.GetConnectionString("AppConfig");
-            builder.ConfigurationBuilder.AddAzureAppConfiguration(connection);
+
+            builder.ConfigurationBuilder.AddAzureAppConfiguration(options =>
+            {
+                options.Connect(connection)
+                       // Load all keys that start with `TestApp:`
+                       .Select("TestApp:*")
+                       // Configure to reload configuration if the registered 'Sentinel' key is modified
+                       .ConfigureRefresh(refreshOptions =>
+                          refreshOptions.Register("TestApp:Settings:Sentinel", refreshAll: true));
+            });
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿@page "/callback"
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorApp.Client.Extensions
+@using BlazorApp.Shared
+@using Intuit.Ipp.OAuth2PlatformClient
 @inject NavigationManager NavManager
 @inject HttpClient Http
 
@@ -11,7 +13,7 @@
 <p>Next store the access and refresh tokens</p>
 <p>And then use them</p>
 
-@if (requestCode == null)
+@if (authorizationServerResponse?.Code == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -27,19 +29,23 @@ else
         <tbody>
             <tr>
                 <td>State</td>
-                <td>@state</td>
+                <td>@authorizationServerResponse.State</td>
             </tr>
             <tr>
                 <td>Code</td>
-                <td>@requestCode</td>
+                <td>@authorizationServerResponse.Code</td>
             </tr>
             <tr>
                 <td>Realm Id</td>
-                <td>@realmId</td>
+                <td>@authorizationServerResponse.RealmId</td>
             </tr>
             <tr>
                 <td>Access Token</td>
                 <td>@accessToken</td>
+            </tr>
+            <tr>
+                <td>Refresh Token</td>
+                <td>@refreshToken</td>
             </tr>
             <tr>
                 <td>Message</td>
@@ -50,14 +56,12 @@ else
     <button class="btn btn-primary" @onclick="GetAuthTokensAsync">GetAuthTokensAsync</button>
     <button class="btn btn-primary" @onclick="DoIt">DoIt</button>
 }
-}
 
 @code {
-    private string requestCode;
-    private string state;
-    private string realmId;
     private string accessToken;
+    private string refreshToken;
     private string message;
+    private AuthorizationServerResponse authorizationServerResponse;
 
     protected override void OnInitialized()
     {
@@ -66,9 +70,12 @@ else
             var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
             var queryStrings = QueryHelpers.ParseQuery(uri.Query);
 
-            state = NavManager.ExtractQueryStringByKey<string>("state");
-            requestCode = NavManager.ExtractQueryStringByKey<string>("code");
-            realmId = NavManager.ExtractQueryStringByKey<string>("realmId");
+            authorizationServerResponse = new AuthorizationServerResponse()
+            {
+                State = NavManager.ExtractQueryStringByKey<string>("state"),
+                Code = NavManager.ExtractQueryStringByKey<string>("code"),
+                RealmId = NavManager.ExtractQueryStringByKey<string>("realmId")
+            };
 
 
         }
@@ -82,8 +89,11 @@ else
     {
         accessToken = "Loading...";
 
-        accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync/{requestCode}");
+        var response = await Http.PostAsJsonAsync<AuthorizationServerResponse>($"/api/GetAuthTokensAsync", authorizationServerResponse);
+        var tokenResponse = await response.Content.ReadFromJsonAsync<MyTokenResponse>();
 
+        accessToken = tokenResponse.AccessToken;
+        refreshToken = tokenResponse.RefreshToken;
 
     }
 

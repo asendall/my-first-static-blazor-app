@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorApp.Api
@@ -11,10 +13,12 @@ namespace BlazorApp.Api
     public class DoItFunction
     {
         private readonly IConfiguration _config;
+        private readonly IConfigurationRefresher _configurationRefresher;
 
-        public DoItFunction(IConfiguration config)
+        public DoItFunction(IConfiguration config, IConfigurationRefresherProvider refresherProvider)
         {
             _config = config;
+            _configurationRefresher = refresherProvider.Refreshers.First(); ;
         }
 
         [FunctionName("DoIt")]
@@ -23,7 +27,9 @@ namespace BlazorApp.Api
             ILogger log)
         {
 
-            string keyName = "TestApp:Settings:Message";
+            await _configurationRefresher.TryRefreshAsync();
+
+            string keyName = "TestApp:QuickBooks:RefreshToken";
             string message = _config[keyName];
 
             return message != null
