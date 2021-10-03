@@ -3,10 +3,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <RootNamespace>BlazorApp.Api</RootNamespace>
+    <UserSecretsId>ca1e49e8-566a-4bb6-a197-895c2620d3a7</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Data.AppConfiguration" Version="1.1.0" />
     <PackageReference Include="IppDotNetSdkForQuickBooksApiV3" Version="14.6.1" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.5.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.13" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.19" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.13" />
   </ItemGroup>

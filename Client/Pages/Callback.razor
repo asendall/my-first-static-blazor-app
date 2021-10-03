@@ -41,9 +41,15 @@ else
                 <td>Access Token</td>
                 <td>@accessToken</td>
             </tr>
+            <tr>
+                <td>Message</td>
+                <td>@message</td>
+            </tr>
         </tbody>
     </table>
     <button class="btn btn-primary" @onclick="GetAuthTokensAsync">GetAuthTokensAsync</button>
+    <button class="btn btn-primary" @onclick="DoIt">DoIt</button>
+}
 }
 
 @code {
@@ -51,6 +57,7 @@ else
     private string state;
     private string realmId;
     private string accessToken;
+    private string message;
 
     protected override void OnInitialized()
     {
@@ -76,6 +83,15 @@ else
         accessToken = "Loading...";
 
         accessToken = await Http.GetStringAsync($"/api/GetAuthTokensAsync/{requestCode}");
+
+
+    }
+
+    private async Task DoIt()
+    {
+        message = "Loading...";
+
+        message = await Http.GetStringAsync("/api/DoIt");
 
 
     }
