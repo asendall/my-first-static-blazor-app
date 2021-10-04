@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlazorApp.Shared
+namespace BlazorApp.Shared.Models
 {
     public class MyTokenResponse
     {

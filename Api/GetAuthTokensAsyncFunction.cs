@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Azure.Data.AppConfiguration;
 using BlazorApp.Shared;
 using System;
+using BlazorApp.Shared.Models;
 
 namespace BlazorApp.Api
 {
