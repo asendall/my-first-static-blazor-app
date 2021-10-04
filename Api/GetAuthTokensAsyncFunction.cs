@@ -40,6 +40,7 @@ namespace BlazorApp.Api
             var configurationClient = new ConfigurationClient(connectionString);
             await configurationClient.SetConfigurationSettingAsync("TestApp:QuickBooks:AccessToken", tokenResponse.AccessToken);
             await configurationClient.SetConfigurationSettingAsync("TestApp:QuickBooks:RefreshToken", tokenResponse.RefreshToken);
+            await configurationClient.SetConfigurationSettingAsync("TestApp:QuickBooks:RealmId", authorizationServerResponse.RealmId);
             await configurationClient.SetConfigurationSettingAsync("TestApp:Settings:Sentinel", Guid.NewGuid().ToString());
 
             return new OkObjectResult(new MyTokenResponse()

@@ -55,6 +55,7 @@ else
     </table>
     <button class="btn btn-primary" @onclick="GetAuthTokensAsync">GetAuthTokensAsync</button>
     <button class="btn btn-primary" @onclick="DoIt">DoIt</button>
+    <button class="btn btn-primary" @onclick="CreateCustomer">CreateCustomer</button>
 }
 
 @code {
@@ -89,7 +90,7 @@ else
     {
         accessToken = "Loading...";
 
-        var response = await Http.PostAsJsonAsync<AuthorizationServerResponse>($"/api/GetAuthTokensAsync", authorizationServerResponse);
+        var response = await Http.PostAsJsonAsync<AuthorizationServerResponse>("/api/GetAuthTokensAsync", authorizationServerResponse);
         var tokenResponse = await response.Content.ReadFromJsonAsync<MyTokenResponse>();
 
         accessToken = tokenResponse.AccessToken;
@@ -104,6 +105,12 @@ else
         message = await Http.GetStringAsync("/api/DoIt");
 
 
+    }
+
+    private async Task CreateCustomer()
+    {
+        var response = await Http.PostAsJsonAsync<AppCustomer>("/api/CreateCustomerAsync", new AppCustomer());
+        var customer = await response.Content.ReadFromJsonAsync<AppCustomer>();
     }
 }
 

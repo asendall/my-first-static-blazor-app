@@ -13,6 +13,7 @@ using Intuit.Ipp.Core;
 using Intuit.Ipp.Data;
 using Intuit.Ipp.QueryFilter;
 using Intuit.Ipp.DataService;
+using BlazorApp.Shared.Models;
 
 namespace BlazorApp.Api
 {
@@ -29,13 +30,13 @@ namespace BlazorApp.Api
 
         [FunctionName("CreateCustomerAsync")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] AppCustomer customer, HttpRequest req,
             ILogger log)
         {
 
-            string accessToken = _config["TestApp:Settings:Message"];
-            string realmId = _config["TestApp:Settings:RealmId"];
-            string qboBaseUrl = _config["TestApp:Settings:QboBaseUrl"];
+            string accessToken = _config["TestApp:QuickBooks:AccessToken"];
+            string realmId = _config["TestApp:QuickBooks:RealmId"];
+            string qboBaseUrl = _options.QBOBaseUrl;
 
             OAuth2RequestValidator oauthValidator = new OAuth2RequestValidator(accessToken);
 
@@ -69,7 +70,7 @@ namespace BlazorApp.Api
 
             Customer CustomerAdd = dataService.Add(ObjCustomer);
 
-            return new OkObjectResult(CustomerAdd);
+            return new OkObjectResult(customer);
             
         }
     }
