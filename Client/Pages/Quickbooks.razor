@@ -1,0 +1,55 @@
+﻿@page "/quickbooks"
+
+
+<h1>Success!</h1>
+<p>You succefully logged in to Quickbooks.</p>
+<p>Next store the access and refresh tokens</p>
+<p>And then use them</p>
+
+@if (authorizationServerResponse?.Code == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization URL</td>
+                <td>@url</td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td>@authorizationServerResponse.State</td>
+            </tr>
+            <tr>
+                <td>Code</td>
+                <td>@authorizationServerResponse.Code</td>
+            </tr>
+            <tr>
+                <td>Realm Id</td>
+                <td>@authorizationServerResponse.RealmId</td>
+            </tr>
+            <tr>
+                <td>Access Token</td>
+                <td>@accessToken</td>
+            </tr>
+            <tr>
+                <td>Refresh Token</td>
+                <td>@refreshToken</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" @onclick="GetAuthorizationURL">Get Auth URL</button>
+    <button class="btn btn-primary" @onclick="Connect">Connect</button>
+    <button class="btn btn-primary" @onclick="GetAuthTokensAsync">Get Auth Tokens</button>
+    <button class="btn btn-primary" @onclick="RefreshToken">Refresh Token</button>
+    <button class="btn btn-primary" @onclick="CreateCustomer">Create Customer</button>
+}
+
