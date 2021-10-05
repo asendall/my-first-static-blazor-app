@@ -3,15 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Intuit.Ipp.OAuth2PlatformClient;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Azure.Data.AppConfiguration;
 using Intuit.Ipp.Security;
 using Intuit.Ipp.Core;
 using Intuit.Ipp.Data;
-using Intuit.Ipp.QueryFilter;
 using Intuit.Ipp.DataService;
 using BlazorApp.Shared.Models;
 

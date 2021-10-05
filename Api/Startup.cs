@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using BlazorApp.Api.Data;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -11,6 +13,10 @@ namespace BlazorApp.Api
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
+
+            // In case you need to access IConfiguration
+            var config = builder.GetContext().Configuration;
+
             builder.Services.AddOptions<OAuth2Keys>()
                 .Configure<IConfiguration>((settings, configuration) =>
                 {
@@ -18,6 +24,12 @@ namespace BlazorApp.Api
                 });
 
             builder.Services.AddAzureAppConfiguration();
+
+            var connectionString = config.GetConnectionString("AdminConnection");
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            builder.Services.AddDbContext<AdminContext>(options =>
+                options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
         }
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)

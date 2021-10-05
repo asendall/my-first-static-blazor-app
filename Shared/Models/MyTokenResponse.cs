@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BlazorApp.Shared.Models
+﻿namespace BlazorApp.Shared.Models
 {
     public class MyTokenResponse
     {

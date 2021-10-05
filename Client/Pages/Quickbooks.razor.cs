@@ -80,7 +80,7 @@ namespace BlazorApp.Client.Pages
 
         private async Task CreateCustomer()
         {
-            var response = await Http.PostAsJsonAsync("/api/CreateCustomerAsync", new AppCustomer());
+            var response = await Http.PostAsJsonAsync("/api/CreateCustomerAsync", new AppCustomer(Guid.NewGuid(),"Test","test@mycharity.org"));
             var customer = await response.Content.ReadFromJsonAsync<AppCustomer>();
         }
     }

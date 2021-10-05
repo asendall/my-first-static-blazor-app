@@ -8,7 +8,6 @@ using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Azure.Data.AppConfiguration;
-using BlazorApp.Shared;
 using System;
 using BlazorApp.Shared.Models;
 
