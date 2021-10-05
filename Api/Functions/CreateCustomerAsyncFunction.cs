@@ -12,7 +12,7 @@ using Intuit.Ipp.Data;
 using Intuit.Ipp.DataService;
 using BlazorApp.Shared.Models;
 
-namespace BlazorApp.Api
+namespace BlazorApp.Api.Functions
 {
     public class CreateCustomerAsyncFunction
     {

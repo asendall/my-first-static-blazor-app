@@ -7,7 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using BlazorApp.Shared.Models;
 
-namespace BlazorApp.Api
+namespace BlazorApp.Api.Functions
 {
     public static class WeatherForecastFunction
     {

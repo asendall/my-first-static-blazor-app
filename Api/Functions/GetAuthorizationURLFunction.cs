@@ -7,7 +7,7 @@ using Intuit.Ipp.OAuth2PlatformClient;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 
-namespace BlazorApp.Api
+namespace BlazorApp.Api.Functions
 {
     public class GetAuthorizationURLFunction
     {
