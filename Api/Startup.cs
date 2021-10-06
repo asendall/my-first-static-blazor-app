@@ -3,6 +3,7 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System.Reflection;
 
 [assembly: FunctionsStartup(typeof(BlazorApp.Api.Startup))]

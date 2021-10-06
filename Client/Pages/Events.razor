@@ -1,0 +1,58 @@
+@page "/events"
+@using BlazorApp.Shared
+@using Newtonsoft.Json
+@inject HttpClient Http
+@attribute [Authorize]
+
+<h1>Events</h1>
+
+@if (events == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<table class="table" style="width: 100%">
+    <colgroup>
+        <col style="width: 20%;" />
+        <col style="width: 20%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Created At</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in events)
+        {
+            <tr>
+                <td>@customer.Id</td>
+                <td>@customer.CreatedAt</td>
+                <td><pre>@((MarkupString)JsonConvert.SerializeObject(@customer.Event, Formatting.Indented))</pre></td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+@code {
+    private InboxMessage[] events;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var json_str = await Http.GetStringAsync("/api/GetEvents");
+
+            events = JsonConvert.DeserializeObject<InboxMessage[]> (json_str, new JsonSerializerSettings() { TypeNameHandling= TypeNameHandling.Auto});
+
+            //events = await Http.GetFromJsonAsync<InboxMessage[]>("/api/GetEvents");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}

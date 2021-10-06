@@ -31,7 +31,4 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Configurations\" />
-  </ItemGroup>
 </Project>

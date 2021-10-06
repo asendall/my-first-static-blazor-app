@@ -6,6 +6,7 @@ namespace BlazorApp.Api.Data
     public class AdminContext : DbContext
     {
         public virtual DbSet<AppCustomer> Customers { get; set; }
+        public virtual DbSet<InboxMessage> Inbox { get; set; }
 
         public AdminContext(DbContextOptions<AdminContext> options)
             : base(options) { }

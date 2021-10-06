@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp.Shared.Models
 {
@@ -9,33 +8,15 @@ namespace BlazorApp.Shared.Models
         /// The unique identifier for the Account
         /// </summary>
         [Key]
-        public Guid Id { get; private set; }
+        public string Id { get; set; }
         
         [Required]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [Required]
-        public string SuperAdminEmail { get; private set; }
+        public string SuperAdminEmail { get; set; }
 
-        public int NumberOfUsers { get; private set; }
+        public int NumberOfUsers { get; set; }
 
-        private AppCustomer() { }
-
-        public AppCustomer(Guid id, string name, string superAdminEmail )
-        {
-            Id = id;
-            Name = name;
-            SuperAdminEmail = superAdminEmail;
-        }
-
-        public void  AddUser()
-        {
-            NumberOfUsers ++;
-        }
-
-        public void RemoveUser()
-        {
-            NumberOfUsers--;
-        }
     }
 }
