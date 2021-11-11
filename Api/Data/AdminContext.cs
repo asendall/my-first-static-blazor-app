@@ -14,11 +14,11 @@ namespace BlazorApp.Api.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var connectionString = "Data Source = (LocalDb)\\MSSQLLocalDB; database = GAR.Admin; trusted_connection = yes;";
-            optionsBuilder.UseSqlServer(connectionString);
-            base.OnConfiguring(optionsBuilder);
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    var connectionString = "Data Source = (LocalDb)\\MSSQLLocalDB; database = GAR.Admin; trusted_connection = yes;";
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //    base.OnConfiguring(optionsBuilder);
+        //}
     }
-}
 }
