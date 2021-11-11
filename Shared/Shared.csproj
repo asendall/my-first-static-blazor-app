@@ -6,16 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GAR.Events.Shared" Version="1.0.0" />
+    <PackageReference Include="GAR.Shared.Models" Version="1.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="GAR.Events.Shared">
-      <HintPath>..\..\Gift Aid Recorder 2020\GAR.Events.Shared\bin\Debug\netstandard2.0\GAR.Events.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="GAR.Shared.Models">
-      <HintPath>..\..\Gift Aid Recorder 2020\GAR.Shared.Models\bin\Debug\netstandard2.0\GAR.Shared.Models.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

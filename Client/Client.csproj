@@ -7,6 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="AnthonyChu.AzureStaticWebApps.Blazor.Authentication" Version="0.0.2-preview" />
+    <PackageReference Include="GAR.Events.Shared" Version="1.0.0" />
+    <PackageReference Include="GAR.Shared.Models" Version="1.0.0" />
     <PackageReference Include="IppDotNetSdkForQuickBooksApiV3" Version="14.6.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.10" PrivateAssets="all" />
@@ -16,15 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="GAR.Events.Shared">
-      <HintPath>..\..\Gift Aid Recorder 2020\GAR.Events.Shared\bin\Debug\netstandard2.0\GAR.Events.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="GAR.Shared.Models">
-      <HintPath>..\..\Gift Aid Recorder 2020\GAR.Shared.Models\bin\Debug\netstandard2.0\GAR.Shared.Models.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
