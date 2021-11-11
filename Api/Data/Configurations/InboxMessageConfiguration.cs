@@ -1,5 +1,5 @@
 ﻿using BlazorApp.Shared.Models;
-using GAR.Functions.IntegrationEvents;
+using GAR.Events.Shared.IntegrationEvents;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;

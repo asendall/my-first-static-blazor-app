@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GAR.Events.Shared.IntegrationEvents;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp.Shared.Models
 {
@@ -17,6 +18,8 @@ namespace BlazorApp.Shared.Models
         public string SuperAdminEmail { get; set; }
 
         public int NumberOfUsers { get; set; }
+        public Plan Plan { get; set; }
+        public CustomerStatus CustomerStatus { get; set; }
 
     }
 }

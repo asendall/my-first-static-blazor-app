@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GAR.Functions\GAR.Functions.csproj" />
+    <ProjectReference Include="..\..\Gift Aid Recorder 2020\GAR.Events.Shared\GAR.Events.Shared.csproj" />
   </ItemGroup>
 
 </Project>

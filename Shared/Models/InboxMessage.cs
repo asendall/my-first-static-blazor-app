@@ -1,4 +1,4 @@
-﻿using GAR.Functions.IntegrationEvents;
+﻿using GAR.Events.Shared.IntegrationEvents;
 using System;
 namespace BlazorApp.Shared.Models
 {

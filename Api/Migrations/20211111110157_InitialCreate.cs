@@ -11,14 +11,29 @@ namespace BlazorApp.Api.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     SuperAdminEmail = table.Column<string>(nullable: false),
-                    NumberOfUsers = table.Column<int>(nullable: false)
+                    NumberOfUsers = table.Column<int>(nullable: false),
+                    Plan = table.Column<int>(nullable: false),
+                    CustomerStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Inbox",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    Event = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inbox", x => x.Id);
                 });
         }
 
@@ -26,6 +41,9 @@ namespace BlazorApp.Api.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Inbox");
         }
     }
 }
