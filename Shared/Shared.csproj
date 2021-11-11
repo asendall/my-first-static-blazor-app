@@ -6,11 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GAR.Events.Shared" Version="1.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Gift Aid Recorder 2020\GAR.Events.Shared\GAR.Events.Shared.csproj" />
   </ItemGroup>
 
 </Project>
